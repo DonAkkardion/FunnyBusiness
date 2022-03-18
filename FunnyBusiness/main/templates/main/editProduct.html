@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if user.is_authenticated %}
+        {% if user.id == product.owner%}
+            <h1>Editor</h1>
+            <p>Edit Your Products Here</p>
+            <br/>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <br/>
+                <input type="submit" value="Update" class="btn btn-secondary">
+
+            </form>
+            
+        {% else %}
+            <h1>Access denied</h1>
+            <p>You cant edit products if you are not an owner</p>
+        {% endif %}    
+    {% else %}
+        <h1>Access denied</h1>
+        <a href="{% url 'LogIn' %}">
+            Login Here
+        </a>
+    {% endif %}
+    
+</div>     
+{% endblock %}

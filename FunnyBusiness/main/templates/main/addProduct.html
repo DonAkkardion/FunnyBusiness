@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Create your Product
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if user.is_authenticated %}
+        <h1>Create Product</h1><br>
+        <div class="container">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.name }}<br>
+                {{ form.description }}<br>
+                {{ form.price }}<br>
+                <p>Availability {{ form.isAvailable }}<br> </p> 
+                <p>Chose category</p>
+                {{ form.category }}<br>
+                {{ form.img }}<br>
+                <div class="visible">{{ form.owner }}</div><br>
+                <button type="submit" class="btn btn-success">Save</button>
+                <span>{{ error }}</span>
+            </form>
+        </div>
+    {% else %}
+        <h1>You need to be logged in to add Products</h1>
+        <a href="{% url 'LogIn' %}">
+            Login Here
+        </a>
+    {% endif %}
+</div>
+{% endblock %}

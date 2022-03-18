@@ -1,0 +1,239 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center">
+    <h1>Main Hub</h1>
+    </div>
+    <br>
+    {% if user.is_authenticated %}
+        {% for el in category%}
+            <div class="container">
+
+                <h3>{{ el.name }}</h3>
+
+                <br>
+                <div class="container overflow-hidden">
+                    <div class="row gy-5 ">
+                        {% for prod in products%}
+                            {% if prod.category == el %}
+                                <div class="col-6">
+                                    <div class="p-3">
+                                        <div class="card" style="width: 18rem;">
+                                            {% if prod.img  %}
+                                            <img src="{{ prod.img.url }}" class="card-img-top" alt="..." width="300" height="400">      
+                                            {% else  %}
+                                            <img src="..." class="figure-img img-fluid rounded" alt="...">
+                                            {% endif%}                              
+                                            <div class="card-body">
+                                            <h5 class="card-title">{{ prod.name }}</h5>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">{{ prod.description }}</li>
+                                                <li class="list-group-item">{{ prod.price}} $</li>
+                                            </ul>
+                                            <div class="card-body">
+                                                <div class="d-grid gap-3 d-md-block ">
+                                                    <a href="{% url 'ViewProduct' prod.id %}" class="btn btn-info">More About</button>
+                                                    <a href="#" class="btn btn-success rounded float-end">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h1>You need to be logged in to view Products</h1>
+        <a href="{% url 'LogIn' %}">
+            Login Here
+        </a>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+
+
+
+<!-- {% for el in products%}
+    <div class="alert alert-warning mt-2">
+        <h3>{{ el.name }}</h3>
+        <p>{{ el.description }}</p>
+        <h3>{{ el.price}}</h3>
+        <h3>{{ el.isAvailable}}</h3>
+        <h3>{{ el.category}}</h3>
+        <img src= "/FunnyBusiness/{{el.img}}" width="32" height="32" >
+    </div>
+{% endfor %} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div class="container">
+        <div class="mb-4 row">
+            <div class="col">
+                <h2 class="mb-0 mx-2">
+                    Recommended to you
+                </h2>
+            </div>
+        </div>
+        <div class="position-relative">
+            <div class="slick-slider pb-sm-5 mb-5 slick-slider-wrapper slick-initialized" dir="ltr">
+                <button type="button" data-role="none" class="slick-arrow slick-prev" style="display: block;"> 
+                    Previous
+                </button>
+                <div class="slick-list">
+                    <div class="slick-track" style="width: 7656px; opacity: 1; transform: translate3d(-696px, 0px, 0px);">
+                        ::before
+                        <div data-index="0" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false"
+                            style="outline: none; width: 174px;">
+                            <div>
+                                <div class="item px-md-1" tabindex="-1" style="width: 100%; display: inline-block;">
+                                    <div class="mb-4 card-hover mx-2 card">
+                                        <a href="/">
+                                            <img src="a|||||||||||||||||||||||.jpg" alt="" class="card-img-top rounded-top-md">
+                                        </a>
+                                        <div class="card-body">
+                                            <h3 class="h4 mb-2 text-truncate-line-2 ">
+                                                <a class="text-inherit" href="/">
+                                                GraphQL: introduction to graphQL for beginners
+                                                </a>
+                                            </h3>
+                                            <ul class="mb-3 list-inline">
+                                                <li class="list-inline-item">
+                                                    <i class="far fa-clock me-1">
+
+                                                    </i>
+                                                    2h 40m
+                                                </li>
+                                                <li class="list-inline-item"><svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                                                        <rect x="7" y="5" width="2" height="9" rx="1" fill="#754FFE"></rect>
+                                                        <rect x="11" y="2" width="2" height="12" rx="1" fill="#754FFE"></rect>
+                                                    </svg>
+                                                    Advance
+                                                </li>
+                                            </ul>
+                                            <div class="lh-1 d-flex align-items-center ">
+                                                <span class="text-warning me-1 mb-1"> 
+                                                    <svg viewBox="0 0 24 24" role="presentation" style="width: 0.875rem; height: 0.875rem;">
+                                                        <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" style="fill: currentcolor;">
+                                                        </path>
+                                                    </svg>
+                                                    <svg viewBox="0 0 24 24" role="presentation" style="width: 0.875rem; height: 0.875rem;">
+                                                        <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" style="fill: currentcolor;"></path>
+                                                    </svg>
+                                                    <svg viewBox="0 0 24 24" role="presentation" style="width: 0.875rem; height: 0.875rem;">
+                                                        <path d="M12,15.4V6.1L13.71,10.13L18.09,10.5L14.77,13.39L15.76,17.67M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z" style="fill: currentcolor;"></path>
+                                                    </svg>
+                                                    <svg viewBox="0 0 24 24" role="presentation" style="width: 0.875rem; height: 0.875rem;">
+                                                        <path d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z" style="fill: currentcolor;"></path>
+                                                    </svg>
+                                                    <svg viewBox="0 0 24 24" role="presentation" style="width: 0.875rem; height: 0.875rem;">
+                                                        <path d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z" style="fill: currentcolor;"></path>
+                                                    </svg>
+                                                </span>
+                                                <span class="text-warning me-1">
+                                                    2.5
+                                                </span>
+                                                <span class="fs-6 text-muted">
+                                                    (1&nbsp;500)
+                                                </span>
+                                            </div>
+                                            <div class="lh-1 mt-3 ">
+                                                <span class="text-dark fw-bold">
+                                                    $500
+                                                </span> 
+                                                <del class="fs-6 text-muted">
+                                                    $600
+                                                </del>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="align-items-center g-0 row">
+                                                <div class="col-auto col">
+                                                    <img src="/static/media/avatar-6.3905522d6589ed6dfcf0.jpg" alt="" class="rounded-circle avatar-xs">
+                                                </div>
+                                                <div class="col ms-2 col">
+                                                    <span>
+                                                        Brooklyn Simmons
+                                                    </span>
+                                                </div>
+                                                <div class="col-auto col">
+                                                    <a class="text-muted bookmark" href="/">
+                                                        <i class="fe fe-bookmark">
+
+                                                        </i>
+                                                    </a>
+                                                </div>
+                                            </div><span class="d-none">
+                                                <div class="mt-3 progress" style="height: 5px;">
+                                                    <div role="progressbar" class="progress-bar bg-success" aria-valuenow="95" aria-valuemin="0"
+                                                        aria-valuemax="100" style="width: 95%;">
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        ::after
+                    </div>
+                    
+                <button type="button" data-role="none" class="slick-arrow slick-next" style="display: block;"> 
+                    Next
+                </button>
+
+            </div>        
+        </div>
+    </div> -->

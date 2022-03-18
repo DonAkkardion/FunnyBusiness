@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <div class="shadow-sm p-3 mb-5 rounded bg-light" style="width: 100%; ">
+        <div class="container ">
+            <div class="  "  >
+                <h1>{{product}} </h1> 
+            </div>
+        </div>    
+    </div>
+    <br>
+        <div class="container border px-3">
+            <div class="row gx-2">
+
+
+                <div class="col-sm-6 col-md-6 text-center">
+                    <br>
+                    <div class="container  p-3">
+                        <figure class="figure p-2 ">
+                            {% if product.img  %}
+                                <img src="{{product.img.url}}" class="figure-img img-fluid rounded" alt="..." width="400">
+                            {% else  %}
+                                <img src=" " class="figure-img img-fluid rounded" alt="...">
+                            {% endif%}
+                            
+                        </figure>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-6 col-md-6">
+                    <div class="p-2  ">
+                        <div class="container px-3">
+                            <div class="row gx-2">
+                                <div class="col-sm-6 col-md-7" style="height: 100px;">
+                                    <div class="p-3  bg-light h-75 "><h3>{{product}}</h3></div>
+                                </div>
+                                <div class="col-sm-6 col-md-5" style="height: 100px;">
+                                    <div class="p-3  bg-light h-75 text " >
+                                                <h5> Owner: {{product_owner}} </h5> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="container border px-3">
+                                <p>{{product.description}}<p>
+                            </div>
+                            <br>
+                            <div class="row gx-5 p-3">
+                                <div class="col-sm-6 col-md-4 d-grid gap-3 d-md-block ">
+                                    <div class="p-3  bg-light">{{product.price}}$</div>
+                                </div>
+                                <div class="col-sm-6 p-2">
+                                    <a href="#" class="btn btn-success rounded float-end">Buy</a>
+                                </div>
+                                <br>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    {% else %}
+        <h1>Access denied</h1>
+        <a href="{% url 'LogIn' %}">
+            Login Here
+        </a>
+    {% endif %}
+    
+    
+     
+{% endblock %}

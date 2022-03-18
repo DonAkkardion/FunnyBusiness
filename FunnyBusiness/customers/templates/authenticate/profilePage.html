@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  {% if user.is_authenticated %}
+      <h1>Your account</h1>
+      You Are Logged In As: {{ user }}
+      <br/>
+      
+      <br/>
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Category</th>
+              <th scope="col">Available</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for prod in products %}
+            {% if user.id == prod.owner %}
+            <tr>
+              <th scope="row"> {{ loop.revindex0 }} </th>
+              <td>{{ prod.name }}</td>
+              <td>{{ prod.price }}</td>
+              <td>{{ prod.category }}</td>
+              <td>{{ prod.isAvailable }}</td>
+              <td><div class="d-grid d-md-block float-end">
+                  <a href="{% url 'EditProduct' prod.id %}" class="btn btn-primary">Edit</a>
+                  <a href="{% url 'DeleteProduct' prod.id %}" class="btn btn-danger">Delete</a>
+              </div>
+              </td>
+            </tr>
+            {% endif %}
+
+          {% endfor %}
+          </tbody>
+        </table>
+  {% else %}
+        <h1>Access denied</h1>
+        <a href="{% url 'LogIn' %}">
+            Login Here
+        </a>
+  {% endif %}
+
+</div>
+{% endblock %}
