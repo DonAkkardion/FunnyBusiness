@@ -22,6 +22,7 @@ class Products(models.Model):
     category = models.ForeignKey(Category, on_delete= models.CASCADE)
     img = models.ImageField(null=True, blank=True, upload_to="images/")
     owner = models.IntegerField("Product Owner", blank=False)
+    
 
 
     def __str__(self):
