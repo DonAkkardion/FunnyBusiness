@@ -17,8 +17,18 @@ Create your Product
                 <p>Availability {{ form.isAvailable }}<br> </p> 
                 <p>Chose category</p>
                 {{ form.category }}<br>
+                <div class="row gx-0">
+                    <div class="col-sm-2 col-md-2 ">
+                        <p>Edd Product image</p>
+                    </div>
+                    <div class="col-sm-2 col-md-2 ">
+                        <div class="text-secondary" >Must be 4/3 </div>
+                    </div>
+                </div>
+
                 {{ form.img }}<br>
-                <div class="visible">{{ form.owner }}</div><br>
+                
+                
                 <button type="submit" class="btn btn-success">Save</button>
                 <span>{{ error }}</span>
             </form>

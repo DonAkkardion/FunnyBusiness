@@ -6,7 +6,7 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    <div class="shadow-sm p-3 mb-5 rounded bg-light" style="width: 100%; ">
+    <div class="shadow-sm p-3 mb-5 rounded" style="width: 100%; background-color:rgba(53, 89, 250, 0.192);">
         <div class="container ">
             <div class="  "  >
                 <h1>{{product}} </h1> 
@@ -14,13 +14,13 @@
         </div>    
     </div>
     <br>
-        <div class="container border px-3">
+        <div class="container  px-3" style="background-color:rgba(118, 203, 243, 0.096);">
             <div class="row gx-2">
 
 
                 <div class="col-sm-6 col-md-6 text-center">
                     <br>
-                    <div class="container  p-3">
+                    <div class="container   p-3">
                         <figure class="figure p-2 ">
                             {% if product.img  %}
                                 <img src="{{product.img.url}}" class="figure-img img-fluid rounded" alt="..." width="400">
@@ -33,28 +33,31 @@
                 </div>
 
 
-                <div class="col-sm-6 col-md-6">
+                <div class="col-sm-6 col-md-6" >
                     <div class="p-2  ">
-                        <div class="container px-3">
+                        <div class="container  px-0" >
                             <div class="row gx-2">
-                                <div class="col-sm-6 col-md-7" style="height: 100px;">
-                                    <div class="p-3  bg-light h-75 "><h3>{{product}}</h3></div>
+                                <div class="col-sm-6  col-md-7" style="height: 100px;">
+                                    <div class="p-3   h-75 " style="background-color:rgba(44, 64, 95, 0.096);"><h3>{{product}}</h3></div>
                                 </div>
                                 <div class="col-sm-6 col-md-5" style="height: 100px;">
-                                    <div class="p-3  bg-light h-75 text " >
+                                    <div class="p-3   h-75 text " style="background-color:rgba(44, 64, 95, 0.096);" >
                                                 <h5> Owner: {{product_owner}} </h5> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <br>
-                            <div class="container border px-3">
+                            <div class="container  px-2">
+                            <h5>  Description: </h5> 
+                             </div>
+                            <div class="container  px-3" style="height: 400px; background-color:rgba(44, 64, 95, 0.096);">
                                 <p>{{product.description}}<p>
                             </div>
                             <br>
-                            <div class="row gx-5 p-3">
-                                <div class="col-sm-6 col-md-4 d-grid gap-3 d-md-block ">
-                                    <div class="p-3  bg-light">{{product.price}}$</div>
+                            <div class="row gx-5 p-3" >
+                                <div class="col-sm-6 col-md-4 d-grid gap-3 d-md-block " style="background-color:rgba(10, 99, 14, 0.205);">
+                                    <div class="p-3  ">{{product.price}}$</div>
                                 </div>
                                 <div class="col-sm-6 p-2">
                                     <a href="#" class="btn btn-success rounded float-end">Buy</a>
