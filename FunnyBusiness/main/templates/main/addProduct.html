@@ -19,15 +19,16 @@ Create your Product
                 {{ form.category }}<br>
                 <div class="row gx-0">
                     <div class="col-sm-2 col-md-2 ">
-                        <p>Edd Product image</p>
+                        <p>Edd Preview image</p>
                     </div>
                     <div class="col-sm-2 col-md-2 ">
                         <div class="text-secondary" >Must be 4/3 </div>
                     </div>
                 </div>
-
                 {{ form.img }}<br>
-                
+                <p>Upload File</p>
+                {{ form.fileEntity }}
+                <br>
                 
                 <button type="submit" class="btn btn-success">Save</button>
                 <span>{{ error }}</span>

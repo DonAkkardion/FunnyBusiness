@@ -14,7 +14,7 @@
         </div>    
     </div>
     <br>
-        <div class="container  px-3" style="background-color:rgba(118, 203, 243, 0.096);">
+        <div class="container  px-3 " style="background-color:rgba(118, 203, 243, 0.096);">
             <div class="row gx-2">
 
 
@@ -33,7 +33,7 @@
                 </div>
 
 
-                <div class="col-sm-6 col-md-6" >
+                <div class="col-sm-6 col-md-6 ">
                     <div class="p-2  ">
                         <div class="container  px-0" >
                             <div class="row gx-2">
@@ -55,14 +55,21 @@
                                 <p>{{product.description}}<p>
                             </div>
                             <br>
-                            <div class="row gx-5 p-3" >
-                                <div class="col-sm-6 col-md-4 d-grid gap-3 d-md-block " style="background-color:rgba(10, 99, 14, 0.205);">
+                            <div class="row gx-5 p-3 "  >
+                                <div class="col-sm-3 d-grid gap-3  d-md-block  " style="height: 70px; background-color:rgba(10, 99, 14, 0.205);">
                                     <div class="p-3  ">{{product.price}}$</div>
                                 </div>
-                                <div class="col-sm-6 p-2">
-                                    <a href="#" class="btn btn-success rounded float-end">Buy</a>
+                                <div class="col-sm-8   " style="height: 100px;" >
+                                    <div class="row gx-5 p-3 " >
+                                        <div class="col-sm ">
+                                            <a href="{% url 'BuyProduct' product.id %}" class="btn btn-success rounded float-end">Buy</a>
+                                        </div>
+                                        <div class="col-sm">
+                                            <a href="{% url 'RateProduct' product.id %}" class="btn float-start" style="background-color:rgba(211, 197, 0, 0.603);">Add a Review</a>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <br>
                             </div>
                         </div>    
                     </div>
@@ -71,6 +78,41 @@
 
             </div>
         </form>
+        <br>
+        <div class="container text-center px-3" style="height: 100%; width: 800px; background-color:rgba(118, 203, 243, 0.096);">
+            <br>
+            <h5> Comments section </h5> 
+                {% for rev in review %}
+                    {% if rev.target == product.id %}
+                    <div class="container  px-3" style="height: 100%; background-color:rgba(187, 228, 196, 0.541);">
+                        <br> 
+                        <div class="container text-start px-3">
+                            <h5>{{rev.comments}}</h5>
+                        </div>
+                        <br> 
+                        <div class="row justify-content-md-center">
+
+                            <div class="col col-lg-4">
+                                <h5>Autor raiting:{{rev.autor_raiting}}</h5>
+                            </div>
+
+                            <div class="col-md-auto"style= "width: 100px;">
+                                
+                            </div>
+
+                            <div class="col col-lg-4" >
+                                <h5>Product raiting:{{rev.product_raiting}}</h5>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    {% else  %}
+                        <h5>  </h5> 
+                    {% endif%}
+                    <br>
+                {% endfor %}
+            
+        </div>
     {% else %}
         <h1>Access denied</h1>
         <a href="{% url 'LogIn' %}">

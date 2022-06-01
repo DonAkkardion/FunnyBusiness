@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Create your Product
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if user.is_authenticated %}
+        <h1>Product Review</h1><br>
+        <div class="container">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.comments }}<br>
+                <p>Rate this product</p>
+                {{ form.product_raiting }}<br>
+                <p>Rate product owner</p>
+                {{ form.autor_raiting }}<br>
+                <button type="submit" class="btn btn-success">Save</button>
+                <span>{{ error }}</span>
+            </form>
+        </div>
+    {% else %}
+        <h1>You need to be logged in to add Products</h1>
+        <a href="{% url 'LogIn' %}">
+            Login Here
+        </a>
+    {% endif %}
+</div>
+{% endblock %}

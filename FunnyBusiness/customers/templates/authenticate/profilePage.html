@@ -20,6 +20,7 @@
               <th scope="col">Price</th>
               <th scope="col">Category</th>
               <th scope="col">Available</th>
+              <th scope="col">Link</th>
             </tr>
           </thead>
           <tbody>
@@ -27,12 +28,13 @@
             {% if user.id == prod.owner %}
             <tr>
               <th scope="row">
-  
+                {{ prod.id }}
               </th>
               <td>{{ prod.name }}</td>
               <td>{{ prod.price }}</td>
               <td>{{ prod.category }}</td>
               <td>{{ prod.isAvailable }}</td>
+              <td><a href="{% url 'DownloadFile' prod.id %}" class="btn btn-success">Download</a></td>
               <td><div class="d-grid d-md-block float-end">
                   <a href="{% url 'EditProduct' prod.id %}" class="btn btn-primary">Edit</a>
                   <a href="{% url 'DeleteProduct' prod.id %}" class="btn btn-danger">Delete</a>

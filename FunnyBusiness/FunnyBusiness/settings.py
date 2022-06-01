@@ -22,13 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!$3*slc9hksg@=8*5ew5b^adr8&sa_&i%+wup3dbivqvsq2255'
+SECRET_KEY = 'SHA256:knHTygXF0F+s0J5tZR1yywi9pcbZJKkLKzAjEVqTHz0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['django-env.eba-4pw2df6p.us-west-2.elasticbeanstalk.com']
-
+# ALLOWED_HOSTS = ['FunnyBusiness.eba-qtpx2vt2.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = []                
 
 # Application definition
 
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'customers'
+    'customers',
+    'Services',
 ]
 
 MIDDLEWARE = [
@@ -120,7 +121,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+
+STATIC_ROOT = 'static/FunnyBusiness'
+
+# MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -132,3 +136,16 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# AWS S3 settings
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'AKIA2EDE3RDY4T4PBQ73'
+
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_STORAGE_BUCKET_NAME = 'funnybusinessstorage'
+
+AWS_QUERYSTRING_AUTH = False

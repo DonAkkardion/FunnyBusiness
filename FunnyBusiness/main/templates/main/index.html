@@ -21,30 +21,32 @@
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         {% for prod in products%}
                             {% if prod.category == el %}
-                                <div class="col-6">
-                                    <div class="p-3">
-                                        <div class="card" style="width: 18rem;">
-                                            {% if prod.img  %}
-                                            <img src="{{ prod.img.url }}" class="card-img-top" alt="..." width="300" height="400">      
-                                            {% else  %}
-                                            <img src="..." class="figure-img img-fluid rounded" alt="...">
-                                            {% endif%}                              
-                                            <div class="card-body">
-                                            <h5 class="card-title">{{ prod.name }}</h5>
-                                            </div>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">{{ prod.description }}</li>
-                                                <li class="list-group-item">{{ prod.price}} $</li>
-                                            </ul>
-                                            <div class="card-body">
-                                                <div class="d-grid gap-3 d-md-block ">
-                                                    <a href="{% url 'ViewProduct' prod.id %}" class="btn btn-info">More About</button>
-                                                    <a href="#" class="btn btn-success rounded float-end">Buy</a>
+                                {% if prod.isAvailable == True %}
+                                    <div class="col-6">
+                                        <div class="p-3">
+                                            <div class="card" style="width: 18rem;">
+                                                {% if prod.img  %}
+                                                <img src="{{ prod.img.url }}" class="card-img-top" alt="..." width="300" height="400">      
+                                                {% else  %}
+                                                <img src="..." class="figure-img img-fluid rounded" alt="...">
+                                                {% endif%}                              
+                                                <div class="card-body">
+                                                <h5 class="card-title">{{ prod.name }}</h5>
+                                                </div>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">{{ prod.description }}</li>
+                                                    <li class="list-group-item">{{ prod.price}} $</li>
+                                                </ul>
+                                                <div class="card-body">
+                                                    <div class="d-grid gap-3 d-md-block ">
+                                                        <a href="{% url 'ViewProduct' prod.id %}" class="btn btn-info">More About</button>
+                                                        <a href="{% url 'BuyProduct' prod.id %}" class="btn btn-success rounded float-end"> Buy </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>    
-                                </div>
+                                        </div>    
+                                    </div>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
                     </div>

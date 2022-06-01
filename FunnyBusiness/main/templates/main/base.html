@@ -8,24 +8,37 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom" style="">
         <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-          <div class="container">
-            <span class="fs-4">FunnyBusiness</span>
+          <div class="container mt-2">
+            <span class="fs-3">FunnyBusiness</span>
           </div>
         </a>
        
-        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-          <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'Hub' %}">Hub</a>
-          <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'AddProduct' %}">Add Product</a>
-          <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'About' %}">About Us</a>
+        <nav class="d-inline-flex mt-3 e-5 ms-md-auto">
+          
+          <a class="me-4 py-1 fs-5 text-dark text-decoration-none" href="{% url 'Hub' %}">Hub</a>
+          <a class="me-4 py-1 fs-5 text-dark text-decoration-none" href="{% url 'AddProduct' %}">Add Product</a>
+          <a class="me-4 py-1 fs-5 text-dark text-decoration-none" href="{% url 'About' %}">About Us</a>
           {% if user.is_authenticated %}
-          <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'ProfilePage' %}">Profile Page</a>
-          <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'LogOut' %}">Logout</a>
+          <a class="me-4 py-1 fs-5 text-dark text-decoration-none" href="{% url 'ProfilePage' %}">Profile Page</a>
+          <a class="me-4 py-1 fs-5 text-dark text-decoration-none" href="{% url 'LogOut' %}">Logout</a>
+          <div class="nav mt-lg-1 flex-nowrap  px-0 me-3 " >
+            <div class="nav-item ">
+              <form class="row rounded position-relative" method="POST" action="{% url 'SearchProduct' %}">
+                {% csrf_token %}
+                <input class="col-sm-1 form-control ps-3 me-1  bg-light" style=" height: 32px; width: 140px;" name="searched" type="search" placeholder="Search..." aria-label="Search">
+                <button class="btn visually-hidden rounded bg-transparent px-2 py-0 position-absolute top-50 start-0 translate-middle-y"  type="submit"><i class="bi bi-search fs-5"> </i></button>
+                <button class="col-sm-3 btn btn-info rounded mx-1 pt-1 " style=" height: 32px; width: 80px;"type="submit">Search</button>
+              </form>
+            </div>
+            
+          </div>
           {% else %}
-          <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'RegisterUser' %}">Register</a>
-          <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'LogIn' %}">Login</a>
+          <a class="me-4 fs-5 py-1 text-dark text-decoration-none" href="{% url 'RegisterUser' %}">Register</a>
+          <a class="me-4 fs-5 py-1 text-dark text-decoration-none" href="{% url 'LogIn' %}">Login</a>
           {% endif %}
+          
         </nav>
         
     </div>

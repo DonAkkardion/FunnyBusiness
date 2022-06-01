@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <div class="container">
+        <br>
+        {% if product.img  %}
+            <img src="{{product.img.url}}" class="figure-img img-fluid rounded" alt="..." width="400">
+        {% else  %}
+            <img src=" " class="figure-img img-fluid rounded" alt="...">
+        {% endif%}
+        
+        <h3>Congratulation. You successfully bought this product ({{product.name}})<br>
+            Now you can download your file by using
+            this link <a href="{% url 'DownloadFile' product.id %}"><h2>download</h2></a>
+            or do it later in your profile page
+        </h3>
+
+
+
+
+
+
+
+    
+    </div>
+    {% else %}
+        <h1>Access denied</h1>
+        <a href="{% url 'LogIn' %}">
+            Login Here
+        </a>
+    {% endif %}
+    
+    
+     
+{% endblock %}
