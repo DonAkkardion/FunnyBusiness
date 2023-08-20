@@ -11,6 +11,7 @@ Create your Product
         <br>
         <h1>Results</h1>
             {% for prod in products %}
+                {% if prod.isAvailable == True %}
                 <div class="col-6">
                     <div class="p-3">
                         <div class="card" style="width: 18rem;">
@@ -35,7 +36,9 @@ Create your Product
                         </div>
                     </div>    
                 </div>
-
+                {% else %}
+                <h3></h3>
+                {% endif %}
             {% endfor %}
         {% else %}
         <h3>OOOoops. Looks like you forgot to type what you are looking for.)</h3>

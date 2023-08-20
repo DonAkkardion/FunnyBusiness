@@ -1,0 +1,137 @@
+@startuml 
+class "admin.LogEntry <Administration>" as admin.LogEntry #f4d6f1 {
+    log entry
+    --
+    - id (AutoField)
+    + action_time (DateTimeField)
+    ~ user (ForeignKey)
+    ~ content_type (ForeignKey)
+    + object_id (TextField)
+    + object_repr (CharField)
+    + action_flag (PositiveSmallIntegerField)
+    + change_message (TextField)
+    --
+}
+admin.LogEntry -- customers.CustomUser
+admin.LogEntry -- contenttypes.ContentType
+
+
+class "auth.Permission <Authentication and Authorization>" as auth.Permission #e8f4d6 {
+    permission
+    --
+    - id (AutoField)
+    + name (CharField)
+    ~ content_type (ForeignKey)
+    + codename (CharField)
+    --
+}
+auth.Permission -- contenttypes.ContentType
+
+
+class "auth.Group <Authentication and Authorization>" as auth.Group #e8f4d6 {
+    group
+    --
+    - id (AutoField)
+    + name (CharField)
+    # permissions (ManyToManyField)
+    --
+}
+auth.Group *--* auth.Permission
+
+
+class "contenttypes.ContentType <Content Types>" as contenttypes.ContentType #d6f4de {
+    content type
+    --
+    - id (AutoField)
+    + app_label (CharField)
+    + model (CharField)
+    --
+}
+
+
+class "sessions.Session <Sessions>" as sessions.Session #f4e1d6 {
+    session
+    --
+    + session_key (CharField)
+    + session_data (TextField)
+    + expire_date (DateTimeField)
+    --
+}
+
+
+class "main.Category <Main>" as main.Category #e6f4d6 {
+    category
+    --
+    + id (BigAutoField)
+    + name (CharField)
+    --
+}
+
+
+class "main.Raiting <Main>" as main.Raiting #e6f4d6 {
+    raiting
+    --
+    + id (BigAutoField)
+    + name (CharField)
+    --
+}
+
+
+class "main.Review <Main>" as main.Review #e6f4d6 {
+    Review
+    --
+    + id (BigAutoField)
+    + comments (TextField)
+    ~ product_raiting (ForeignKey)
+    ~ autor_raiting (ForeignKey)
+    + target (IntegerField)
+    --
+}
+main.Review -- main.Raiting
+main.Review -- main.Raiting
+
+
+class "main.Products <Main>" as main.Products #e6f4d6 {
+    Product
+    --
+    + id (BigAutoField)
+    + name (CharField)
+    + description (TextField)
+    + price (PositiveIntegerField)
+    + isAvailable (BooleanField)
+    + requested (BooleanField)
+    ~ category (ForeignKey)
+    + img (ImageField)
+    + owner (IntegerField)
+    + futureOwner (IntegerField)
+    + fileEntity (ContentTypeRestrictedFileField)
+    + fileEntityHashSSH256 (CharField)
+    --
+}
+main.Products -- main.Category
+
+
+class "customers.CustomUser <Customers>" as customers.CustomUser #f4eed6 {
+    user
+    --
+    + id (BigAutoField)
+    + password (CharField)
+    + last_login (DateTimeField)
+    + is_superuser (BooleanField)
+    + username (CharField)
+    + first_name (CharField)
+    + last_name (CharField)
+    + email (EmailField)
+    + is_staff (BooleanField)
+    + is_active (BooleanField)
+    + date_joined (DateTimeField)
+    + blockchainPublicKey (CharField)
+    # groups (ManyToManyField)
+    # user_permissions (ManyToManyField)
+    --
+}
+customers.CustomUser *--* auth.Group
+customers.CustomUser *--* auth.Permission
+
+
+@enduml

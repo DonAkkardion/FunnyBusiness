@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
-from msilib.schema import Media
+import os
+from dotenv import load_dotenv
 from pathlib import Path
 import os
+import mimetypes
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'rkegworgfwoifdoijwfoidjfwoicmvwoduijhfowjmjfoiwmjfoidmfwoi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'puml_generator',
     'main',
     'customers',
     'Services',
@@ -89,6 +91,8 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
+AUTH_USER_MODEL = 'customers.CustomUser'
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -117,20 +121,41 @@ USE_I18N = True
 USE_TZ = True
 
 
+MINIO_ENV_FILE = 'minio.env'
+
+
+# Load environment variables from minio.env
+load_dotenv(MINIO_ENV_FILE)
+
+# MinIO settings
+MINIO_PUBLIC_URL = 'http://192.168.0.175:9000'
+
+
+DEFAULT_FILE_STORAGE = 'FunnyBusiness.storage_backend.CustomS3Boto3Storage'
+# MINIO_ACCESS_KEY_ID = MINIO_ROOT_USER
+# MINIO_SECRET_ACCESS_KEY = MINIO_ROOT_PASSWORD
+# MINIO_ENDPOINT = MINIO_SERVER_URL
+# MINIO_BUCKET_NAME = MINIO_BUCKET_NAME
+# MINIO_USE_HTTPS = False
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/funnybusinessstorage/static/'
 
-STATIC_ROOT = 'static/FunnyBusiness'
+# STATIC_ROOT = 'static/FunnyBusiness'
 
-# MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = MINIO_ENDPOINT + '/funnybusinessstorage/media/'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
+    # BASE_DIR / "static",
 )
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -138,14 +163,29 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# MinIO settings
+
+# MINIO_S3_REGION_NAME = 'your-region'  # e.g., 'us-east-1'
+
+
 # AWS S3 settings
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = ''
+AWS_ACCESS_KEY_ID = os.getenv('MINIO_ROOT_USER')
 
-AWS_SECRET_ACCESS_KEY = ''
+AWS_SECRET_ACCESS_KEY = os.getenv('MINIO_ROOT_PASSWORD')
 
-AWS_STORAGE_BUCKET_NAME = 'funnybusinessstorage'
+AWS_STORAGE_BUCKET_NAME = os.getenv('MINIO_BUCKET_NAME')
 
-AWS_QUERYSTRING_AUTH = False
+AWS_S3_ENDPOINT_URL = os.getenv('MINIO_SERVER_URL')
+
+# AWS_QUERYSTRING_AUTH = False
+
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("text/javascript", ".js", True)
+mimetypes.add_type("application/javascript", ".js", True)
+
+
+BLOCKCHAIN_ENDPOINT_URL = "http://blockchain-app:80/" ##- compose path
+# BLOCKCHAIN_ENDPOINT_URL = "http://localhost:80/"

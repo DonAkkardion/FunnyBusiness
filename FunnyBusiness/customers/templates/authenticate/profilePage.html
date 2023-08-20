@@ -7,10 +7,22 @@
 {% block content %}
 <div class="container">
   {% if user.is_authenticated %}
+  <br>
       <h1>Your account</h1>
       You Are Logged In As: {{ user }}
       <br/>
-      
+      {% if messages %}
+      <ul class="messages">
+      {% for message in messages %}
+      <div class="p-2 mb-2 bg-body-tertiary rounded-3 " data-bs-theme="dark" >
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">Error occurred</h1>
+          <p class="col-md-8 fs-4"><code class="fs-4 text-bg-danger"><li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li></code></p>
+        </div>
+    </div>
+      {% endfor %}
+  </ul>
+{% endif %}
       <br/>
       <table class="table">
           <thead>
@@ -20,7 +32,16 @@
               <th scope="col">Price</th>
               <th scope="col">Category</th>
               <th scope="col">Available</th>
-              <th scope="col">Link</th>
+              <th scope="col"></th>
+              <th class="text-center" scope="col">Link</th>
+              {% for prod in products %}
+              {% if user.id == prod.owner %}
+                {% if prod.requested == True %}
+                  <th  scope="col">Product reaquest validation</th>
+                {% endif %}
+                {% endif %}
+              {% endfor %}
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -34,7 +55,16 @@
               <td>{{ prod.price }}</td>
               <td>{{ prod.category }}</td>
               <td>{{ prod.isAvailable }}</td>
-              <td><a href="{% url 'DownloadFile' prod.id %}" class="btn btn-success">Download</a></td>
+              <td></td>
+              <td class="text-center"><a href="{% url 'DownloadFile' prod.id %}"  class="btn btn-success  ">Download</a></td>
+              {% if prod.requested == True %}
+                <td><form class="row rounded " method="POST" action="{% url 'AcceptRequest' prod.id %}">
+                  {% csrf_token %}
+                  <input class="col-sm-1 form-control ps-3 bg-light" style="width: 200px; margin-right: 10px;" name="private_key" type="search" placeholder="Enter your PrivateKey" aria-label="PrivateKey input">
+                  <button class="btn visually-hidden rounded bg-transparent px-2 py-0 position-absolute  top-50 start-0 translate-middle-y"  type="submit"><i class="bi bi-search fs-5"> </i></button>
+                  <button class="col-sm-3 btn btn-secondary rounded  pt-1" style="  width: 80px;"type="submit">Accept</button>
+                </form></td>
+              {% endif %}
               <td><div class="d-grid d-md-block float-end">
                   <a href="{% url 'EditProduct' prod.id %}" class="btn btn-primary">Edit</a>
                   <a href="{% url 'DeleteProduct' prod.id %}" class="btn btn-danger">Delete</a>
@@ -45,7 +75,40 @@
 
           {% endfor %}
           </tbody>
-        </table>
+      </table>
+      <br>
+      <br>
+      <h2>Waiting for approval</h2>
+        
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for prod in products %}
+          {% if user.id == prod.futureOwner %}
+          <tr>
+            <th scope="row">
+              
+            </th>
+            <td>{{ prod.name }}</td>
+            <td>{{ prod.price }}</td>
+            <td>{{ prod.category }}</td>
+            <td><div class="d-grid d-md-block float-end">
+                <!-- <a href="{% url 'ViewProduct' prod.id %}" class="btn btn-danger">More about</a> -->
+            </div>
+            </td>
+          </tr>
+          {% endif %}
+
+        {% endfor %}
+        </tbody>
+      </table>
   {% else %}
         <h1>Access denied</h1>
         <a href="{% url 'LogIn' %}">

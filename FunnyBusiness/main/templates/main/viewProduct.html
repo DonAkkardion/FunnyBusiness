@@ -6,24 +6,24 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    <div class="shadow-sm p-3 mb-5 rounded" style="width: 100%; background-color:rgba(53, 89, 250, 0.192);">
+    <div class="shadow-sm p-3 mb-5 rounded bg-dark" style="width: 100%; ">
         <div class="container ">
-            <div class="  "  >
+            <div class="text-light  "  >
                 <h1>{{product}} </h1> 
             </div>
         </div>    
     </div>
     <br>
-        <div class="container  px-3 " style="background-color:rgba(118, 203, 243, 0.096);">
+        <div class="container text-light  px-3 bg-dark">
             <div class="row gx-2">
 
 
                 <div class="col-sm-6 col-md-6 text-center">
                     <br>
-                    <div class="container   p-3">
+                    <div class="container p-3">
                         <figure class="figure p-2 ">
                             {% if product.img  %}
-                                <img src="{{product.img.url}}" class="figure-img img-fluid rounded" alt="..." width="400">
+                                <img src="{{product.img.url}}" class="figure-img img-fluid rounded" alt="..." width="100%">
                             {% else  %}
                                 <img src=" " class="figure-img img-fluid rounded" alt="...">
                             {% endif%}
@@ -56,7 +56,7 @@
                             </div>
                             <br>
                             <div class="row gx-5 p-3 "  >
-                                <div class="col-sm-3 d-grid gap-3  d-md-block  " style="height: 70px; background-color:rgba(10, 99, 14, 0.205);">
+                                <div class="col-sm-3 d-grid gap-3  d-md-block  " style="height: 70px; background-color:rgba(6, 18, 6, 0.205);">
                                     <div class="p-3  ">{{product.price}}$</div>
                                 </div>
                                 <div class="col-sm-8   " style="height: 100px;" >
@@ -79,12 +79,12 @@
             </div>
         </form>
         <br>
-        <div class="container text-center px-3" style="height: 100%; width: 800px; background-color:rgba(118, 203, 243, 0.096);">
+        <div class="container text-center px-3 bg-dark text-light" style="height: 100%; width: 800px; background-color:rgba(118, 203, 243, 0.096);">
             <br>
             <h5> Comments section </h5> 
                 {% for rev in review %}
                     {% if rev.target == product.id %}
-                    <div class="container  px-3" style="height: 100%; background-color:rgba(187, 228, 196, 0.541);">
+                    <div class="container  px-3" style="height: 100%; background-color:rgba(0, 0, 0, 0.638);">
                         <br> 
                         <div class="container text-start px-3">
                             <h5>{{rev.comments}}</h5>

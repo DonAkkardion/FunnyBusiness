@@ -1,20 +1,43 @@
 {% extends 'main/base.html' %}
-
+<link rel="stylesheet" href="static/FunnyBusiness/admin/css/style.css">
 {% block title %}
 Create your Product
 {% endblock %}
 
 {% block content %}
 <div class="container">
+    <br/>
+      {% if messages %}
+      <ul class="messages">
+      {% for message in messages %}
+      <div class="p-2 mb-2 bg-body-tertiary rounded-3 " data-bs-theme="dark" >
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">Error occurred</h1>
+          <p class="col-md-8 fs-4"><code class="fs-4 text-bg-danger"><li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li></code></p>
+        </div>
+    </div>
+            
+      {% endfor %}
+      </ul>
+      {% endif %}
+      <br/>
     {% if user.is_authenticated %}
         <h1>Create Product</h1><br>
-        <div class="container">
-            <form method="POST" enctype="multipart/form-data">
+        <div class="">
+            <form method="POST" id="product-form" enctype="multipart/form-data">
                 {% csrf_token %}
+                
                 {{ form.name }}<br>
                 {{ form.description }}<br>
                 {{ form.price }}<br>
-                <p>Availability {{ form.isAvailable }}<br> </p> 
+                <div class="row gx-0">
+                    <div class="col-sm-2 col-md-2 ">
+                        <p>Availability {{ form.isAvailable }}</p> 
+                    </div>
+                    <div class="col-sm-2 col-md-5 ">
+                        <div class="text-secondary" >Activating this option will make your product visible for other customers</div>
+                    </div>
+                </div>
                 <p>Chose category</p>
                 {{ form.category }}<br>
                 <div class="row gx-0">
@@ -22,16 +45,35 @@ Create your Product
                         <p>Edd Preview image</p>
                     </div>
                     <div class="col-sm-2 col-md-2 ">
-                        <div class="text-secondary" >Must be 4/3 </div>
+                        <div class="text-secondary" > </div>
                     </div>
                 </div>
-                {{ form.img }}<br>
+
+
+                <div id="alert-box"></div>
+                <div class="text-center mb-2 not-visible" id="hidden-element" >
+                    <img  id="image-box" width="600px" max-width: 100%>
+                    <button class="btn btn-secondary mt-1 " id="confirm-btn">confirm</button>
+                </div>
+
+
+                {{ form.img }} <br>
                 <p>Upload File</p>
                 {{ form.fileEntity }}
-                <br>
                 
-                <button type="submit" class="btn btn-success">Save</button>
+                <br>
+                    <div class="row gx-0">
+                        <div class="col-sm-2 col-md-2 ">
+                            <input class="col-sm-1 form-control ps-3 bg-light" style="width: 200px; margin-right: 10px;" name="product_private_key" type="search" placeholder="Enter your PrivateKey" aria-label="PrivateKey input">
+                        </div>
+                        <div class="col-sm-2 col-md-5 ">
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                  <br>
+                
                 <span>{{ error }}</span>
+                <br>
             </form>
         </div>
     {% else %}

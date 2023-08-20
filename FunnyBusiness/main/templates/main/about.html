@@ -5,9 +5,38 @@ About Page
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<!-- <div class="container">
     <h1>About FB</h1>
     <p>FB stands for Funny Business</p>
-    <a href="{% url 'NewTest' %}" class="btn btn-success">Api</a>
-</div>
+    <a href="{% url 'NewTest' %}" class="btn btn-success">qqq</a>
+</div> -->
+</head>
+
+<body>
+
+    <body>
+    <div class="container">
+      <main class="px-3">
+        <h1>How to register </h1>
+        <p class="lead">Go to Register page and fill all fields</p>
+        <p class="lead">
+          <a href="{% url 'RegisterUser' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-dark">Register</a>
+        </p>
+        <h1>How to buy Products </h1>
+        <p class="lead">If u are already registered Lon in into your accaunt and go to Hub Page to select the product. </p>
+        <p class="lead">
+          <a href="{% url 'Hub' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-dark">Hub</a>
+        </p>
+        <p class="lead">Then select the Product and go to More About page or just press the buttton Buy and wait for product Owner approval. </p>
+        <p class="lead">
+        </p>
+      </main>
+    </div>
+
+
+
+
+</body>
+
+</html>
 {% endblock %}

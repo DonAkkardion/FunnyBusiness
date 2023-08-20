@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "cropper": "^4.1.0",
+    "cropperjs": "^1.5.13",
+    "jquery": "^3.7.0",
+    "jquery-cropper": "^1.0.1"
+  }
+}

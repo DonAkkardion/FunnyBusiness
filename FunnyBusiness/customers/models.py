@@ -1,18 +1,18 @@
 import django
 from django.db import models
-from asyncio.windows_events import NULL
 from email.policy import default
 from pyexpat import model
 from tabnanny import verbose
 from unicodedata import category, name
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
 
+class CustomUser(AbstractUser):
+    blockchainPublicKey = models.CharField(max_length=255, blank=True, null=True)
 
-class FB_user(User):
 
-    balance = models.IntegerField('balance', default= '1000'),
 
 

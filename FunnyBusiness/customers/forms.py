@@ -2,15 +2,17 @@ from dataclasses import fields
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from customers.models import CustomUser
 
 
 class RegisterUserForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class' : 'form-control'}))
     first_name = forms.CharField(max_length = 50, widget=forms.TextInput(attrs={'class' : 'form-control'}))
     last_name = forms.CharField(max_length = 50, widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ('username', 'first_name', 'last_name', 'email', 'password1','password2')
     
     def __init__(self, *args, **kwargs):
@@ -19,3 +21,10 @@ class RegisterUserForm(UserCreationForm):
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
+
+    def save(self, commit=True):
+        user = super(RegisterUserForm, self).save(commit=False)
+        user.blockchainPublicKey = 'abc'  
+        if commit:
+            user.save()
+        return user

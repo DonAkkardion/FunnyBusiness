@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+Registtation finished
+{% endblock %}
+
+{% block content %}
+
+<header class="pb-3 mb-4 border-bottom">
+    <a class="d-flex align-items-center text-dark text-decoration-none">
+      <div class="fs-4" style="width: 200px;"></div>
+      <div class="fs-4">Your account was successfully registered!</div>
+    </a>
+</header>
+    <div class="container py-4"  > 
+        {% if user.is_authenticated %}
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3 " data-bs-theme="dark" >
+            <div class="container-fluid py-5">
+              <h1 class="display-5 fw-bold">Important information about your account</h1>
+              <p class="col-md-8 fs-4">Dont close or refresh this page until you copy and save Your <code class="fs-4 text-bg-danger">PrivateKey</code></p>
+            </div>
+        </div>
+        <div class="row align-items-md-stretch">
+            <div class="col-md-6" data-bs-theme="dark">
+                <div class="h-100 p-5 text-bg-dark rounded-3">
+                <h2>PublicKey</h2>
+                <p>Your PublicKey is open information that helps us to identify you in blochchain. We store it the same as other information about our users.</p>
+                <button data-bs-toggle="collapse" data-bs-target="#demo" class="btn btn-outline-light" type="button">See my PublicKey</button>
+                <div id="demo" class="collapse">
+                    <p>
+                        <span id="publicKeyPlaceholder" style="display: block; overflow: auto; max-height: 150px;">
+                            {{ customUser.blockchainPublicKey }}
+                        </span>
+                    </p>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+              <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+                <h2>PrivateKey</h2>
+                <p>PrivateKey is your secret key and you need to save it outside of any services. Even our site doesn`t store this information. After you leave this page you wont be able to get it again.</p>
+                <input class="col-sm-1 form-control ps-3 me-1  bg-light" value="{{ blockchainPrivateKey }}" id="blockchainPrivateKey">
+                <button class="btn btn-outline-secondary" onclick="copyBlockChainKey()" type="button">Copy my PrivateKey</button>
+                
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <h1>Access denied</h1>
+          <a href="{% url 'LogIn' %}">
+              Login Here
+          </a>
+        {% endif %}      
+    </div>
+{% endblock %}

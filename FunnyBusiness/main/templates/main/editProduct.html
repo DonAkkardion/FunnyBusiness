@@ -13,8 +13,12 @@
             <br/>
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
-
+                <!-- {{ form.as_p }} -->
+                {% for field in form %}
+                    {% if field.name != 'fileEntity' %}
+                        <p>{{ field.label_tag }} {{ field }}</p>
+                    {% endif %}
+                {% endfor %}
                 <br/>
                 <input type="submit" value="Update" class="btn btn-secondary">
 

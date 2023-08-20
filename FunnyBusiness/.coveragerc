@@ -1,0 +1,15 @@
+# .coveragerc
+[run]
+omit =
+    # Exclude migrations
+    */migrations/*
+    # Exclude manage.py
+    manage.py
+    # Exclude the virtual environment directory
+    FunnyBusiness_venv/*
+    # Exclude migrations
+    *__init__.py
+
+    *asgi.py
+
+    *wsgi.py

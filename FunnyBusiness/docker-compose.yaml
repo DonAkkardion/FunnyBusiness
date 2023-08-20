@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  django-app:
+    container_name: ${API_CONTAINER_NAME}
+    build: 
+      context: ${API_DOCKER_CONTEXT}
+      dockerfile: ${API_DOCKER_FILE_PATH}
+    volumes:
+      - type: bind
+        source: ${API_CODE_VOLUM_SOURCE}
+        target: ${API_CODE_VOLUM_TARGET}
+    ports:
+      - ${API_PORT_SOURCE}:${API_PORT_TARGET}
+    networks:
+      - minio
+    restart: always
+
+  blockchain-app:
+    container_name: ${API_BLOCKCHAIN_CONTAINER_NAME}
+    image: ${API_BLOCKCHAIN_IMAGE_NAME}
+    build: 
+      context: ${API_BLOCKCHAIN_DOCKER_CONTEXT}
+      dockerfile: ${API_BLOCKCHAIN_FILE_PATH}
+    ports:
+      - ${API_BLOCKCHAIN_PORT_SOURCE}:${API_BLOCKCHAIN_PORT_TARGET}
+    networks:
+      - minio
+    restart: always
+
+  storage:
+      container_name: ${MINIO_CONTAINER_NAME}
+      image: ${MINIO_IMAGE_NAME}
+      command: server --console-address :${MINIO_CONSOLE_PORT_TARGET} ${MINIO_VOLUM_DATA_TARGET}
+      environment:
+        MINIO_ROOT_USER: ${MINIO_USER}
+        MINIO_ROOT_PASSWORD: ${MINIO_PASS}
+      ports:
+        - ${MINIO_API_PORT_SOURCE}:${MINIO_API_PORT_TARGET}
+        - ${MINIO_CONSOLE_PORT_SOURCE}:${MINIO_CONSOLE_PORT_TARGET}
+      volumes:
+        - type: volume
+          source: minio_data
+          target: ${MINIO_VOLUM_DATA_TARGET}
+          volume:
+            nocopy: true
+        - type: volume
+          source: minio_conf
+          target: ${MINIO_VOLUM_ROOT_TARGET}
+          volume:
+            nocopy: true
+      networks:
+        - minio
+
+networks:
+  minio:
+    driver: bridge
+
+volumes:
+  minio_data:
+  minio_conf:
